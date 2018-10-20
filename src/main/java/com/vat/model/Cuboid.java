@@ -2,6 +2,8 @@ package com.vat.model;
 
 import com.vat.model.Shape;
 
+import java.util.HashMap;
+
 public class Cuboid implements Shape {
 
     /**
@@ -18,6 +20,16 @@ public class Cuboid implements Shape {
     private int height;
 
     /**
+     * Fields of the Cuboid
+     */
+    private static HashMap<String, String> fields = new HashMap<String, String>() {{
+        put("length", "Lengte:");
+        put("width", "Breedte:");
+        put("height", "Hoogte:");
+    }};
+
+
+    /**
      * @param length
      * @param width
      * @param height
@@ -25,6 +37,10 @@ public class Cuboid implements Shape {
     public Cuboid(int length, int width, int height) {
         // TODO - implement Cuboid.Cuboid
         throw new UnsupportedOperationException();
+    }
+
+    public static HashMap<String, String> getFields() {
+        return fields;
     }
 
     public int getLength() {
