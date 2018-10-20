@@ -1,13 +1,17 @@
 package com.vat.gui;
 
+import com.sun.javafx.scene.control.skin.LabeledText;
 import com.vat.gui.data.LoadShapes;
 import com.vat.gui.data.SaveShapes;
 import com.vat.gui.shape.NewShape;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -18,6 +22,7 @@ public class MainApplication extends Application {
 
     private Stage window;
     private ComboBox<String> shapeTypeComboBox;
+    private String previousSelectedItem = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -111,19 +116,27 @@ public class MainApplication extends Application {
         ListView<String> shapeList = new ListView<>();
         shapeList.setPrefWidth(300.0);
         shapeList.getItems().addAll("Test 1", "Test 2", "Test 3");
-        shapeList.getSelectionModel().selectedIndexProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    System.out.println(oldValue);
-                    System.out.println(newValue);
-                    shapeListHeader.setVisible(true);
-                });
-//        shapeList.setOnMouseClicked(event -> {
-//            if (event.getButton() == MouseButton.PRIMARY && event.getTarget() instanceof LabeledText) {
-//                if (event.getClickCount() == 1) {
-//
-//                }
-//            }
-//        });
+//        shapeList.getSelectionModel()
+//                .selectedIndexProperty()
+//                .addListener((observable, oldValue, newValue) -> {
+//                    System.out.println(oldValue);
+//                    System.out.println(newValue);
+//                    shapeListHeader.setVisible(true);
+//                });
+        shapeList.setOnMouseClicked(click -> {
+            String selectedItem = shapeList.getSelectionModel()
+                    .getSelectedItem();
+
+            if(this.previousSelectedItem == null) {
+                this.previousSelectedItem = selectedItem;
+            } else if(this.previousSelectedItem.equals(selectedItem)) {
+//                Platform.runLater(shapeList.getSelectionModel().set);
+            }
+
+            if (click.getClickCount() == 2) {
+
+            }
+        });
 
         shapeListBox.getChildren().addAll(shapeListHeader, shapeList);
 
