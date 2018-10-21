@@ -61,7 +61,7 @@ public class Cube implements Shape {
 
     @Override
     public double calculateVolume() {
-        return 0;
+        return Math.pow(this.width, 3);
     }
 
     @Override
@@ -91,8 +91,6 @@ public class Cube implements Shape {
 
     @Override
     public String toString() {
-        return "Cube{" +
-                "width=" + width +
-                '}';
+        return String.format("Kubus (breedte: %d)", width);
     }
 }

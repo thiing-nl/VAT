@@ -1,5 +1,6 @@
 package com.vat.gui.shape;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -9,16 +10,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 class ShapeScene {
 
     private Label testLabel;
     private int fieldCount = 0;
+    private boolean pressedAdd = false;
 
     HashMap<String, Integer> createWindowAndShow(String text, HashMap<String, String> fields) {
         return createWindowAndShow(text, fields, new HashMap<>());
@@ -63,7 +67,11 @@ class ShapeScene {
         }
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("VAT - Vorm aanmaken");
+        if(data.size() == 0) {
+            window.setTitle("VAT - Vorm aanmaken");
+        } else {
+            window.setTitle("VAT - Vorm veranderen");
+        }
         window.setMinWidth(300);
         window.setMinHeight(350);
 
@@ -72,23 +80,41 @@ class ShapeScene {
         Button closeButton = new Button("Annuleren");
         closeButton.setOnAction(e -> window.close());
 
-        Button createButton = new Button("Aanmaken");
-        createButton.setOnAction(e -> window.close());
+        Button createButton;
+        if(data.size() == 0) {
+            createButton = new Button("Aanmaken");
+        } else {
+            createButton = new Button("Veranderen");
+        }
+        createButton.setOnAction(e -> {
+            this.pressedAdd = true;
+            window.close();
+        });
 
-        layout.getChildren().addAll(testLabel, grid, closeButton, createButton);
+        HBox buttons = new HBox();
+        buttons.setAlignment(Pos.CENTER);
+        buttons.setSpacing(10);
+        buttons.getChildren().addAll(closeButton, createButton);
+
+        layout.getChildren().addAll(testLabel, grid, buttons);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
 
-        HashMap<String, Integer> returnData = new HashMap<>();
+        System.out.println(this.pressedAdd);
+        if (this.pressedAdd) {
+            HashMap<String, Integer> returnData = new HashMap<>();
 
-        for (HashMap.Entry<String, TextField> entry : textFields.entrySet()) {
-            TextField textField = entry.getValue();
-            returnData.put(entry.getKey(), Integer.parseInt(textField.getText()));
+            for (HashMap.Entry<String, TextField> entry : textFields.entrySet()) {
+                TextField textField = entry.getValue();
+                returnData.put(entry.getKey(), Integer.parseInt(textField.getText()));
+            }
+
+            return returnData;
         }
 
-        return returnData;
+        return null;
     }
 }

@@ -21,12 +21,13 @@ import java.util.ArrayList;
 
 public class MainApplication extends Application {
 
+    public static ShapeService shapeService = new ShapeService();
     private Stage window;
     private ComboBox<String> shapeTypeComboBox;
     private ListView<String> shapeList;
-
+    private TextField volumeText;
+    private TextField totalVolumeText;
     private String previousSelectedItem = null;
-    public static ShapeService shapeService = new ShapeService();
 
     public static void main(String[] args) {
         launch(args);
@@ -86,13 +87,8 @@ public class MainApplication extends Application {
                         System.out.println(newValue);
                         window.hide();
 
-                        Shape shape = NewShape.display(newValue);
-                        System.out.println(shape);
-                        if (shape != null) {
-                            window.show();
-                        } else {
-                            window.close();
-                        }
+                        NewShape.display(newValue);
+                        window.show();
                         this.updateView();
                         Platform.runLater(() -> shapeTypeComboBox.setValue(null));
                     }
@@ -102,8 +98,8 @@ public class MainApplication extends Application {
 
         // Volume
         VBox volumeBox = new VBox();
-        Label volumeLabel = new Label("Inhoud:");
-        TextField volumeText = new TextField();
+        Label volumeLabel = new Label("Inhoud: (m³)");
+        volumeText = new TextField();
         volumeText.setPrefWidth(200.0);
         volumeText.setText("0.0");
         volumeText.setDisable(true);
@@ -111,8 +107,8 @@ public class MainApplication extends Application {
 
         // Volume
         VBox totalVolumeBox = new VBox();
-        Label totalVolumeLabel = new Label("Totale Inhoud:");
-        TextField totalVolumeText = new TextField();
+        Label totalVolumeLabel = new Label("Totale Inhoud: (m³)");
+        totalVolumeText = new TextField();
         totalVolumeText.setPrefWidth(200.0);
         totalVolumeText.setText("0.0");
         totalVolumeText.setDisable(true);
@@ -137,13 +133,18 @@ public class MainApplication extends Application {
                 System.out.println("selectedItem: " + selectedItem);
                 System.out.println("this.previousSelectedItem: " + this.previousSelectedItem);
                 if (this.previousSelectedItem == null) {
+                    Shape shape = shapeService.getShapes().get(selectedIndex);
+                    volumeText.setText(String.format("%s", shape.calculateVolume()));
                     this.previousSelectedItem = selectedItem;
                     shapeListHeader.setText("Hint: Dubbelklikken voor bewerken.");
                 } else if (this.previousSelectedItem.equals(selectedItem)) {
                     this.previousSelectedItem = null;
+                    volumeText.setText("0.0");
                     shapeListHeader.setText("Figuren:");
                     Platform.runLater(() -> shapeList.getSelectionModel().select(null));
                 } else {
+                    Shape shape = shapeService.getShapes().get(selectedIndex);
+                    volumeText.setText(String.format("%s", shape.calculateVolume()));
                     this.previousSelectedItem = selectedItem;
                     shapeListHeader.setText("Hint: Dubbelklikken voor bewerken.");
                 }
@@ -175,6 +176,9 @@ public class MainApplication extends Application {
                 shapeService.getShapes()) {
             shapes.add(shape.toString());
         }
+
+        volumeText.setText("0.0");
+        totalVolumeText.setText(String.format("%s", shapeService.calculateVolume()));
 
         shapeList.getItems().addAll(shapes);
     }

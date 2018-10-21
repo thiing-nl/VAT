@@ -1,15 +1,8 @@
 package com.vat.model;
 
-import com.vat.model.Shape;
-
 import java.util.HashMap;
 
 public class Sphere implements Shape {
-
-    /**
-     * Radius of the Sphere
-     */
-    private int radius;
 
     /**
      * Fields of the Sphere
@@ -17,6 +10,10 @@ public class Sphere implements Shape {
     public static HashMap<String, String> fields = new HashMap<String, String>() {{
         put("radius", "Radius:");
     }};
+    /**
+     * Radius of the Sphere
+     */
+    private int radius;
 
     /**
      * @param radius
@@ -74,7 +71,8 @@ public class Sphere implements Shape {
 
     @Override
     public double calculateVolume() {
-        return 0;
+//         4/3 × π × r ³
+        return (4.0 / 3.0) * Math.PI * Math.pow(radius, 3);
     }
 
     @Override
@@ -104,8 +102,6 @@ public class Sphere implements Shape {
 
     @Override
     public String toString() {
-        return "Sphere{" +
-                "radius=" + radius +
-                '}';
+        return String.format("Bol (radius: %d)", radius);
     }
 }

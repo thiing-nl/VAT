@@ -8,15 +8,18 @@ public class Pyramid implements Shape {
      * Fields of the Pyramid
      */
     public static HashMap<String, String> fields = new HashMap<String, String>() {{
-        put("ground", "Grondvlak:");
+        put("length", "Lengte:");
+        put("width", "Breedte:");
         put("height", "Hoogte:");
     }};
 
-    private int ground;
+    private int length;
+    private int width;
     private int height;
 
-    public Pyramid(int ground, int height) {
-        this.ground = ground;
+    public Pyramid(int length, int width, int height) {
+        this.length = length;
+        this.width = width;
         this.height = height;
     }
 
@@ -49,21 +52,23 @@ public class Pyramid implements Shape {
     public HashMap<String, Integer> getData() {
         HashMap<String, Integer> data = new HashMap<>();
 
-        data.put("ground", this.ground);
+        data.put("length", this.length);
         data.put("height", this.height);
+        data.put("width", this.width);
 
         return data;
     }
 
     @Override
     public void setData(HashMap<String, Integer> data) {
-        this.ground = data.getOrDefault("ground", 0);
+        this.length = data.getOrDefault("length", 0);
         this.height = data.getOrDefault("height", 0);
+        this.width = data.getOrDefault("width", 0);
     }
 
     @Override
     public double calculateVolume() {
-        return 0;
+        return ((width * length) * height) / 3.0;
     }
 
     @Override
@@ -93,9 +98,6 @@ public class Pyramid implements Shape {
 
     @Override
     public String toString() {
-        return "Pyramid{" +
-                "ground=" + ground +
-                ", height=" + height +
-                '}';
+        return String.format("Piramide (lengte: %d, breedte: %d, hoogte: %d)", length, width, height);
     }
 }

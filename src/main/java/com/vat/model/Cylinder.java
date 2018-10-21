@@ -91,7 +91,7 @@ public class Cylinder implements Shape {
 
     @Override
     public double calculateVolume() {
-        return 0;
+        return Math.PI * Math.pow(this.radius, 2) * this.height;
     }
 
     @Override
@@ -121,9 +121,6 @@ public class Cylinder implements Shape {
 
     @Override
     public String toString() {
-        return "Cylinder{" +
-                "radius=" + radius +
-                ", height=" + height +
-                '}';
+        return String.format("Cilinder (radius: %d, hoogte: %d)", radius, height);
     }
 }

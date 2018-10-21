@@ -63,7 +63,8 @@ public class Cone implements Shape {
 
     @Override
     public double calculateVolume() {
-        return 0;
+//        1/3 × π × r ² × h
+        return (1.0 / 3.0) * Math.PI * Math.pow(this.radius, 2) * this.height;
     }
 
     @Override
@@ -93,9 +94,6 @@ public class Cone implements Shape {
 
     @Override
     public String toString() {
-        return "Cone{" +
-                "radius=" + radius +
-                ", height=" + height +
-                '}';
+        return String.format("Kegel (radius: %d, hoogte: %d)", radius, height);
     }
 }

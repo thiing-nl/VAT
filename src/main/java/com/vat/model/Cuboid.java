@@ -111,7 +111,7 @@ public class Cuboid implements Shape {
 
     @Override
     public double calculateVolume() {
-        return 0;
+        return this.length * this.width * this.height;
     }
 
     @Override
@@ -141,10 +141,6 @@ public class Cuboid implements Shape {
 
     @Override
     public String toString() {
-        return "Cuboid{" +
-                "length=" + length +
-                ", width=" + width +
-                ", height=" + height +
-                '}';
+        return String.format("Blok (lengte: %d, breedte: %d, hoogte: %d)", length, width, height);
     }
 }

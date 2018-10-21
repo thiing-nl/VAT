@@ -8,23 +8,19 @@ import java.util.HashMap;
 public class ShapeService {
 
     private ArrayList<Shape> shapes = new ArrayList<>();
-    private int volume;
 
     public ArrayList<Shape> getShapes() {
         return this.shapes;
     }
 
-    public int getVolume() {
-        return this.volume;
-    }
+    public double calculateVolume() {
+        double totalVolume = 0.0;
 
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
+        for (Shape shape : shapes) {
+            totalVolume += shape.calculateVolume();
+        }
 
-    public void calculateVolume() {
-        // TODO - implement ShapeService.calculateVolume
-        throw new UnsupportedOperationException();
+        return totalVolume;
     }
 
     /**
@@ -54,7 +50,7 @@ public class ShapeService {
                 newShape = new Cube(data.get("width"));
                 break;
             case "Piramide":
-                newShape = new Pyramid(data.get("ground"), data.get("height"));
+                newShape = new Pyramid(data.get("length"), data.get("width"), data.get("height"));
                 break;
         }
 

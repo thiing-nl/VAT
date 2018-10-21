@@ -9,9 +9,11 @@ public class EditShape extends ShapeScene {
         ShapeScene scene = new ShapeScene();
         System.out.println("Shape: " + shape);
 
-        HashMap<String, Integer> data = scene.createWindowAndShow("123", shape.getFields(), shape.getData());
+        HashMap<String, Integer> data = scene.createWindowAndShow("Vorm bewerken", shape.getFields(), shape.getData());
 
-        shape.setData(data);
+        if (data != null) {
+            shape.setData(data);
+        }
 
         return shape;
     }
