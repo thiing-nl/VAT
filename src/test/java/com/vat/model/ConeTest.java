@@ -35,4 +35,21 @@ class ConeTest {
         assertEquals(30, cone.getRadius());
         assertEquals(40, cone.getHeight());
     }
+
+    @Test
+    void calculateVolume() {
+        Cone cone = new Cone(2, 6);
+
+        cone.calculateVolume();
+
+        assertEquals(((1.0 / 3.0) * Math.PI * Math.pow(2, 2) * 6), cone.calculateVolume());
+
+    }
+
+    @Test
+    void testToString() {
+        Cone cone = new Cone(5, 9);
+
+        assertEquals(String.format("Kegel (radius: %d, hoogte: %d)", 5, 9), cone.toString());
+    }
 }

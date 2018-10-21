@@ -35,4 +35,20 @@ class CylinderTest {
         assertEquals(34, cylinder.getRadius());
         assertEquals(90, cylinder.getHeight());
     }
+
+    @Test
+    void calculateVolume() {
+        Cylinder cylinder = new Cylinder( 2, 8);
+
+        cylinder.calculateVolume();
+
+        assertEquals(Math.PI * Math.pow(2, 2) * 8, cylinder.calculateVolume());
+    }
+
+    @Test
+    void testToString() {
+        Cylinder cylinder = new Cylinder( 5, 13);
+
+        assertEquals(String.format("Cilinder (radius: %d, hoogte: %d)", 5, 13), cylinder.toString());
+    }
 }

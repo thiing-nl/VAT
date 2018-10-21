@@ -40,4 +40,20 @@ class CuboidTest {
         assertEquals(34, cuboid.getWidth());
         assertEquals(4, cuboid.getHeight());
     }
+
+    @Test
+    void calculateVolume() {
+        Cuboid cuboid = new Cuboid( 12, 99, 34);
+
+        cuboid.calculateVolume();
+
+        assertEquals(12 * 99 * 34, cuboid.calculateVolume());
+    }
+
+    @Test
+    void testToString() {
+        Cuboid cuboid = new Cuboid( 1, 3, 9);
+
+        assertEquals(String.format("Blok (lengte: %d, breedte: %d, hoogte: %d)", 1, 3, 9), cuboid.toString());
+    }
 }

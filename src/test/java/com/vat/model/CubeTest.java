@@ -31,4 +31,20 @@ class CubeTest {
 
         assertEquals( 55, cube.getWidth());
     }
+
+    @Test
+    void calculateVolume() {
+        Cube cube = new Cube(4);
+
+        cube.calculateVolume();
+
+        assertEquals(Math.pow(4, 3), cube.calculateVolume());
+    }
+
+    @Test
+    void testToString() {
+        Cube cube = new Cube(59);
+
+        assertEquals(String.format("Kubus (breedte: %d)", 59), cube.toString());
+    }
 }
