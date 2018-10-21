@@ -1,17 +1,17 @@
 package com.vat.model;
 
-import com.vat.model.Shape;
-
 public class Cuboid implements Shape {
 
     /**
      * Length of the Cuboid
      */
     private int length;
+
     /**
      * Width of the Cuboid
      */
     private int width;
+
     /**
      * Height of the Cuboid
      */
@@ -23,8 +23,9 @@ public class Cuboid implements Shape {
      * @param height
      */
     public Cuboid(int length, int width, int height) {
-        // TODO - implement Cuboid.Cuboid
-        throw new UnsupportedOperationException();
+        this.length = length;
+        this.width = width;
+        this.height = height;
     }
 
     public int getLength() {

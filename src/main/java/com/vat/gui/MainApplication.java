@@ -1,17 +1,14 @@
 package com.vat.gui;
 
-import com.sun.javafx.scene.control.skin.LabeledText;
 import com.vat.gui.data.LoadShapes;
 import com.vat.gui.data.SaveShapes;
+import com.vat.gui.shape.EditShape;
 import com.vat.gui.shape.NewShape;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -116,25 +113,29 @@ public class MainApplication extends Application {
         ListView<String> shapeList = new ListView<>();
         shapeList.setPrefWidth(300.0);
         shapeList.getItems().addAll("Test 1", "Test 2", "Test 3");
-//        shapeList.getSelectionModel()
-//                .selectedIndexProperty()
-//                .addListener((observable, oldValue, newValue) -> {
-//                    System.out.println(oldValue);
-//                    System.out.println(newValue);
-//                    shapeListHeader.setVisible(true);
-//                });
         shapeList.setOnMouseClicked(click -> {
             String selectedItem = shapeList.getSelectionModel()
                     .getSelectedItem();
 
-            if(this.previousSelectedItem == null) {
-                this.previousSelectedItem = selectedItem;
-            } else if(this.previousSelectedItem.equals(selectedItem)) {
-//                Platform.runLater(shapeList.getSelectionModel().set);
-            }
-
-            if (click.getClickCount() == 2) {
-
+            if (click.getClickCount() == 1) {
+                System.out.println("selectedItem: " + selectedItem);
+                System.out.println("this.previousSelectedItem: " + this.previousSelectedItem);
+                if (this.previousSelectedItem == null) {
+                    this.previousSelectedItem = selectedItem;
+                    shapeListHeader.setText("Hint: Dubbelklikken voor bewerken.");
+                } else if (this.previousSelectedItem.equals(selectedItem)) {
+                    this.previousSelectedItem = null;
+                    shapeListHeader.setText("Figuren:");
+                    Platform.runLater(() -> shapeList.getSelectionModel().select(null));
+                } else {
+                    this.previousSelectedItem = selectedItem;
+                    shapeListHeader.setText("Hint: Dubbelklikken voor bewerken.");
+                }
+            } else if (click.getClickCount() == 2) {
+                window.hide();
+                if (EditShape.display()) {
+                    window.show();
+                }
             }
         });
 
