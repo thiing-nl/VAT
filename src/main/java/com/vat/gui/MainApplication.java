@@ -78,7 +78,7 @@ public class MainApplication extends Application {
         shapeTypeComboBox = new ComboBox<String>();
         shapeTypeComboBox.setPrefWidth(200.0);
         shapeTypeComboBox.setPromptText("Selecteer...");
-        shapeTypeComboBox.getItems().addAll("Blok", "Bol", "Cilinder", "Kegel", "Kubus", "Piramide", "Prisma");
+        shapeTypeComboBox.getItems().addAll("Blok", "Bol", "Cilinder", "Kegel", "Kubus", "Piramide");
         shapeTypeComboBox
                 .valueProperty()
                 .addListener((observable, oldValue, newValue) -> {
@@ -93,6 +93,7 @@ public class MainApplication extends Application {
                         } else {
                             window.close();
                         }
+                        this.updateView();
                         Platform.runLater(() -> shapeTypeComboBox.setValue(null));
                     }
                 });
@@ -105,6 +106,7 @@ public class MainApplication extends Application {
         TextField volumeText = new TextField();
         volumeText.setPrefWidth(200.0);
         volumeText.setText("0.0");
+        volumeText.setDisable(true);
         volumeBox.getChildren().addAll(volumeLabel, volumeText);
 
         // Volume
@@ -113,6 +115,7 @@ public class MainApplication extends Application {
         TextField totalVolumeText = new TextField();
         totalVolumeText.setPrefWidth(200.0);
         totalVolumeText.setText("0.0");
+        totalVolumeText.setDisable(true);
         totalVolumeBox.getChildren().addAll(totalVolumeLabel, totalVolumeText);
 
         leftPane.add(shapeTypeBox, 0, 0);
@@ -127,6 +130,8 @@ public class MainApplication extends Application {
         shapeList.setOnMouseClicked(click -> {
             String selectedItem = shapeList.getSelectionModel()
                     .getSelectedItem();
+            int selectedIndex = shapeList.getSelectionModel()
+                    .getSelectedIndex();
 
             if (click.getClickCount() == 1) {
                 System.out.println("selectedItem: " + selectedItem);
@@ -144,9 +149,10 @@ public class MainApplication extends Application {
                 }
             } else if (click.getClickCount() == 2) {
                 window.hide();
-                if (EditShape.display()) {
-                    window.show();
-                }
+
+                EditShape.display(shapeService.getShapes().get(selectedIndex));
+                window.show();
+                updateView();
             }
         });
 

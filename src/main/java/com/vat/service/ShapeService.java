@@ -56,9 +56,6 @@ public class ShapeService {
             case "Piramide":
                 newShape = new Pyramid(data.get("ground"), data.get("height"));
                 break;
-            case "Prisma":
-                newShape = new Prism(data.get("radius"), data.get("height"));
-                break;
         }
 
         if(newShape != null) {
@@ -72,19 +69,17 @@ public class ShapeService {
     public static HashMap<String, String> getFields(String shapeType) {
         switch(shapeType) {
             case "Blok":
-                return Cuboid.getFields();
+                return Cuboid.fields;
             case "Bol":
-                return Sphere.getFields();
+                return Sphere.fields;
             case "Cilinder":
-                return Cylinder.getFields();
+                return Cylinder.fields;
             case "Kegel":
-                return Cone.getFields();
+                return Cone.fields;
             case "Kubus":
-                return Cube.getFields();
+                return Cube.fields;
             case "Piramide":
-                return Pyramid.getFields();
-            case "Prisma":
-                return Prism.getFields();
+                return Pyramid.fields;
             default:
                 return null;
         }
