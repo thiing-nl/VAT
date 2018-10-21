@@ -45,6 +45,14 @@ public class Cube implements Shape {
 
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
     @Override
     public HashMap<String, Integer> getData() {
         HashMap<String, Integer> data = new HashMap<>();
