@@ -1,5 +1,7 @@
 package com.vat.gui.shape;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -46,6 +48,16 @@ class ShapeScene {
             fieldInput.setPrefWidth(240);
             grid.add(fieldInput, 0, fieldCount);
             fieldCount++;
+
+            fieldInput.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                    String newValue) {
+                    if (!newValue.matches("\\d*")) {
+                        fieldInput.setText(newValue.replaceAll("[^\\d]", ""));
+                    }
+                }
+            });
 
             textFields.put(entry.getKey(), fieldInput);
         }
