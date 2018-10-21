@@ -49,13 +49,9 @@ class ShapeScene {
             grid.add(fieldInput, 0, fieldCount);
             fieldCount++;
 
-            fieldInput.textProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                    String newValue) {
-                    if (!newValue.matches("\\d*")) {
-                        fieldInput.setText(newValue.replaceAll("[^\\d]", ""));
-                    }
+            fieldInput.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue.matches("\\d*")) {
+                    fieldInput.setText(newValue.replaceAll("[^\\d]", ""));
                 }
             });
 
