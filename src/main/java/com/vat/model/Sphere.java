@@ -2,6 +2,8 @@ package com.vat.model;
 
 import com.vat.model.Shape;
 
+import java.util.HashMap;
+
 public class Sphere implements Shape {
 
     /**
@@ -10,11 +12,22 @@ public class Sphere implements Shape {
     private int radius;
 
     /**
+     * Fields of the Sphere
+     */
+    private static HashMap<String, String> fields = new HashMap<String, String>() {{
+        put("radius", "Radius:");
+    }};
+
+    /**
      * @param radius
      */
     public Sphere(int radius) {
         // TODO - implement Sphere.Sphere
         throw new UnsupportedOperationException();
+    }
+
+    public static HashMap<String, String> getFields() {
+        return fields;
     }
 
     public int getRadius() {
