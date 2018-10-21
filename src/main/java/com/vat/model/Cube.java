@@ -10,7 +10,7 @@ public class Cube implements Shape {
     /**
      * Fields of the Cube
      */
-    private static HashMap<String, String> fields = new HashMap<String, String>() {{
+    public static HashMap<String, String> fields = new HashMap<String, String>() {{
         put("width", "Breedte:");
     }};
 
@@ -20,8 +20,9 @@ public class Cube implements Shape {
         this.width = width;
     }
 
-    public static HashMap<String, String> getFields() {
-        return fields;
+    @Override
+    public HashMap<String, String> getFields() {
+        return Cube.fields;
     }
 
     @Override
@@ -42,6 +43,20 @@ public class Cube implements Shape {
     @Override
     public void setType(String type) {
 
+    }
+
+    @Override
+    public HashMap<String, Integer> getData() {
+        HashMap<String, Integer> data = new HashMap<>();
+
+        data.put("width", this.width);
+
+        return data;
+    }
+
+    @Override
+    public void setData(HashMap<String, Integer> data) {
+        this.width = data.getOrDefault("width", 0);
     }
 
     @Override
@@ -72,5 +87,12 @@ public class Cube implements Shape {
     @Override
     public void loadString(String text) {
 
+    }
+
+    @Override
+    public String toString() {
+        return "Cube{" +
+                "width=" + width +
+                '}';
     }
 }

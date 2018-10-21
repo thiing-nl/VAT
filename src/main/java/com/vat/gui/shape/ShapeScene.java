@@ -12,18 +12,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
-import java.util.Map;
 
 class ShapeScene {
 
     private Label testLabel;
     private int fieldCount = 0;
 
-    HashMap<String, Integer> createWindowAndShow() {
-        return this.createWindowAndShow("Test label!", new HashMap<String, String>());
+    HashMap<String, Integer> createWindowAndShow(String text, HashMap<String, String> fields) {
+        return createWindowAndShow(text, fields, new HashMap<>());
     }
 
-    HashMap<String, Integer> createWindowAndShow(String text, HashMap<String, String> fields) {
+    HashMap<String, Integer> createWindowAndShow(String text, HashMap<String, String> fields, HashMap<String, Integer> data) {
         HashMap<String, TextField> textFields = new HashMap<>();
         Stage window = new Stage();
         GridPane grid = new GridPane();
@@ -37,13 +36,14 @@ class ShapeScene {
         System.out.println(fields);
         layout.getChildren().removeAll(grid);
 
-        for ( HashMap.Entry<String, String> entry : fields.entrySet()) {
+        for (HashMap.Entry<String, String> entry : fields.entrySet()) {
             Label fieldLabel = new Label(entry.getValue());
             grid.add(fieldLabel, 0, fieldCount);
             fieldCount++;
 
             TextField fieldInput = new TextField();
             fieldInput.setPrefWidth(240);
+            fieldInput.setText(String.format("%d", data.getOrDefault(entry.getKey(), 0)));
             grid.add(fieldInput, 0, fieldCount);
             fieldCount++;
 
@@ -70,13 +70,13 @@ class ShapeScene {
         window.setScene(scene);
         window.showAndWait();
 
-        HashMap<String, Integer> data = new HashMap<>();
+        HashMap<String, Integer> returnData = new HashMap<>();
 
         for (HashMap.Entry<String, TextField> entry : textFields.entrySet()) {
             TextField textField = entry.getValue();
-            data.put(entry.getKey(), Integer.parseInt(textField.getText()));
+            returnData.put(entry.getKey(), Integer.parseInt(textField.getText()));
         }
 
-        return data;
+        return returnData;
     }
 }

@@ -7,7 +7,7 @@ public class Cone implements Shape {
     /**
      * Fields of the Cone
      */
-    private static HashMap<String, String> fields = new HashMap<String, String>() {{
+    public static HashMap<String, String> fields = new HashMap<String, String>() {{
         put("radius", "Radius:");
         put("height", "Hoogte:");
     }};
@@ -20,8 +20,9 @@ public class Cone implements Shape {
         this.height = height;
     }
 
-    public static HashMap<String, String> getFields() {
-        return fields;
+    @Override
+    public HashMap<String, String> getFields() {
+        return Cone.fields;
     }
 
     @Override
@@ -42,6 +43,22 @@ public class Cone implements Shape {
     @Override
     public void setType(String type) {
 
+    }
+
+    @Override
+    public HashMap<String, Integer> getData() {
+        HashMap<String, Integer> data = new HashMap<>();
+
+        data.put("radius", this.radius);
+        data.put("height", this.height);
+
+        return data;
+    }
+
+    @Override
+    public void setData(HashMap<String, Integer> data) {
+        this.radius = data.getOrDefault("radius", 0);
+        this.height = data.getOrDefault("height", 0);
     }
 
     @Override
@@ -72,5 +89,13 @@ public class Cone implements Shape {
     @Override
     public void loadString(String text) {
 
+    }
+
+    @Override
+    public String toString() {
+        return "Cone{" +
+                "radius=" + radius +
+                ", height=" + height +
+                '}';
     }
 }

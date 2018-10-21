@@ -8,8 +8,6 @@ import java.util.HashMap;
  */
 public interface Shape extends Serializable {
 
-    HashMap<String, String> fields = new HashMap<>();
-
     int getId();
 
     void setId(int id);
@@ -62,4 +60,9 @@ public interface Shape extends Serializable {
      */
     void loadString(String text);
 
+    HashMap<String, String> getFields();
+
+    HashMap<String, Integer> getData();
+
+    void setData(HashMap<String, Integer> data);
 }

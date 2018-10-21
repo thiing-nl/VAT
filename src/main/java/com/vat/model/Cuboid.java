@@ -24,7 +24,7 @@ public class Cuboid implements Shape {
     /**
      * Fields of the Cuboid
      */
-    private static HashMap<String, String> fields = new HashMap<String, String>() {{
+    public static HashMap<String, String> fields = new HashMap<String, String>() {{
         put("length", "Lengte:");
         put("width", "Breedte:");
         put("height", "Hoogte:");
@@ -42,8 +42,9 @@ public class Cuboid implements Shape {
         this.height = height;
     }
 
-    public static HashMap<String, String> getFields() {
-        return fields;
+    @Override
+    public HashMap<String, String> getFields() {
+        return Cuboid.fields;
     }
 
     public int getLength() {
@@ -91,6 +92,24 @@ public class Cuboid implements Shape {
     }
 
     @Override
+    public HashMap<String, Integer> getData() {
+        HashMap<String, Integer> data = new HashMap<>();
+
+        data.put("length", this.length);
+        data.put("width", this.width);
+        data.put("height", this.height);
+
+        return data;
+    }
+
+    @Override
+    public void setData(HashMap<String, Integer> data) {
+        this.length = data.getOrDefault("length", 0);
+        this.width = data.getOrDefault("width", 0);
+        this.height = data.getOrDefault("height", 0);
+    }
+
+    @Override
     public double calculateVolume() {
         return 0;
     }
@@ -118,5 +137,14 @@ public class Cuboid implements Shape {
     @Override
     public void loadString(String text) {
 
+    }
+
+    @Override
+    public String toString() {
+        return "Cuboid{" +
+                "length=" + length +
+                ", width=" + width +
+                ", height=" + height +
+                '}';
     }
 }

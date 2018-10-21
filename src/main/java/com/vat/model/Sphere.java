@@ -14,7 +14,7 @@ public class Sphere implements Shape {
     /**
      * Fields of the Sphere
      */
-    private static HashMap<String, String> fields = new HashMap<String, String>() {{
+    public static HashMap<String, String> fields = new HashMap<String, String>() {{
         put("radius", "Radius:");
     }};
 
@@ -22,12 +22,12 @@ public class Sphere implements Shape {
      * @param radius
      */
     public Sphere(int radius) {
-        // TODO - implement Sphere.Sphere
-        throw new UnsupportedOperationException();
+        this.radius = radius;
     }
 
-    public static HashMap<String, String> getFields() {
-        return fields;
+    @Override
+    public HashMap<String, String> getFields() {
+        return Sphere.fields;
     }
 
     public int getRadius() {
@@ -59,6 +59,20 @@ public class Sphere implements Shape {
     }
 
     @Override
+    public HashMap<String, Integer> getData() {
+        HashMap<String, Integer> data = new HashMap<>();
+
+        data.put("radius", this.radius);
+
+        return data;
+    }
+
+    @Override
+    public void setData(HashMap<String, Integer> data) {
+        this.radius = data.getOrDefault("radius", 0);
+    }
+
+    @Override
     public double calculateVolume() {
         return 0;
     }
@@ -86,5 +100,12 @@ public class Sphere implements Shape {
     @Override
     public void loadString(String text) {
 
+    }
+
+    @Override
+    public String toString() {
+        return "Sphere{" +
+                "radius=" + radius +
+                '}';
     }
 }
