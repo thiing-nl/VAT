@@ -1,11 +1,12 @@
 package com.vat.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Shape representation
  */
-public interface Shape {
+public interface Shape extends Serializable {
 
     HashMap<String, String> fields = new HashMap<>();
 

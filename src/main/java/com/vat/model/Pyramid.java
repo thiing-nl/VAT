@@ -12,6 +12,14 @@ public class Pyramid implements Shape {
         put("height", "Hoogte:");
     }};
 
+    private int ground;
+    private int height;
+
+    public Pyramid(int ground, int height) {
+        this.ground = ground;
+        this.height = height;
+    }
+
     public static HashMap<String, String> getFields() {
         return fields;
     }

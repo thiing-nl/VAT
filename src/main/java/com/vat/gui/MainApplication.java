@@ -4,6 +4,8 @@ import com.vat.gui.data.LoadShapes;
 import com.vat.gui.data.SaveShapes;
 import com.vat.gui.shape.EditShape;
 import com.vat.gui.shape.NewShape;
+import com.vat.model.Shape;
+import com.vat.service.ShapeService;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -15,11 +17,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class MainApplication extends Application {
 
     private Stage window;
     private ComboBox<String> shapeTypeComboBox;
+    private ListView<String> shapeList;
+
     private String previousSelectedItem = null;
+    public static ShapeService shapeService = new ShapeService();
 
     public static void main(String[] args) {
         launch(args);
@@ -78,8 +85,13 @@ public class MainApplication extends Application {
                     if (newValue != null) {
                         System.out.println(newValue);
                         window.hide();
-                        if (NewShape.display(newValue)) {
+
+                        Shape shape = NewShape.display(newValue);
+                        System.out.println(shape);
+                        if (shape != null) {
                             window.show();
+                        } else {
+                            window.close();
                         }
                         Platform.runLater(() -> shapeTypeComboBox.setValue(null));
                     }
@@ -110,9 +122,8 @@ public class MainApplication extends Application {
         VBox shapeListBox = new VBox();
         Label shapeListHeader = new Label("Figuren:");
 
-        ListView<String> shapeList = new ListView<>();
+        shapeList = new ListView<>();
         shapeList.setPrefWidth(300.0);
-        shapeList.getItems().addAll("Test 1", "Test 2", "Test 3");
         shapeList.setOnMouseClicked(click -> {
             String selectedItem = shapeList.getSelectionModel()
                     .getSelectedItem();
@@ -143,17 +154,45 @@ public class MainApplication extends Application {
 
         rightPane.add(shapeListBox, 0, 0);
 
+        this.updateView();
+
         return editor;
+    }
+
+    private void updateView() {
+        shapeList.getItems()
+                .clear();
+
+        ArrayList<String> shapes = new ArrayList<>();
+
+        for (Shape shape :
+                shapeService.getShapes()) {
+            shapes.add(shape.toString());
+        }
+
+        shapeList.getItems().addAll(shapes);
     }
 
     private MenuBar createMenu() {
         Menu fileMenu = new Menu("Bestand");
 
         MenuItem load = new MenuItem("Inladen");
-        load.setOnAction(e -> LoadShapes.display());
+        load.setOnAction(e -> {
+            window.hide();
+            if (LoadShapes.display()) {
+                window.show();
+                this.updateView();
+            }
+        });
 
         MenuItem save = new MenuItem("Opslaan");
-        save.setOnAction(e -> SaveShapes.display());
+        save.setOnAction(e -> {
+            window.hide();
+            if (SaveShapes.display()) {
+                window.show();
+                this.updateView();
+            }
+        });
 
         MenuItem close = new MenuItem("Afsluiten");
         close.setOnAction(e -> window.close());

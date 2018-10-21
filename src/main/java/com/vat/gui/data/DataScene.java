@@ -9,11 +9,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 class DataScene {
-    static void createWindowAndShow() {
+    static void createWindowAndShow(String text) {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("VAT - Import / Export");
+        window.setTitle("VAT - " + text);
         window.setMinWidth(300);
         window.setMinHeight(300);
 

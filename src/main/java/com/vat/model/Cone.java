@@ -12,6 +12,14 @@ public class Cone implements Shape {
         put("height", "Hoogte:");
     }};
 
+    private int radius;
+    private int height;
+
+    public Cone(int radius, int height) {
+        this.radius = radius;
+        this.height = height;
+    }
+
     public static HashMap<String, String> getFields() {
         return fields;
     }

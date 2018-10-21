@@ -1,38 +1,23 @@
 package com.vat.gui.shape;
 
+import com.vat.gui.MainApplication;
 import com.vat.model.*;
+import com.vat.service.ShapeService;
 
 import java.util.HashMap;
 
 public class NewShape {
-    public static boolean display(String shapeType) {
+
+    public static HashMap<String, Class> shapes = new HashMap<String, Class>() {{
+    }};
+
+
+    public static Shape display(String shapeType) {
         ShapeScene scene = new ShapeScene();
-        HashMap<String, String> fields = new HashMap<>();
 
-        switch(shapeType) {
-            case "Blok":
-                fields = Cuboid.getFields();
-                break;
-            case "Bol":
-                fields = Sphere.getFields();
-                break;
-            case "Cilinder":
-                fields = Cylinder.getFields();
-                break;
-            case "Kegel":
-                fields = Cone.getFields();
-                break;
-            case "Kubus":
-                fields = Cube.getFields();
-                break;
-            case "Piramide":
-                fields = Pyramid.getFields();
-                break;
-            case "Prisma":
-                fields = Prism.getFields();
-                break;
-        }
+        HashMap<String, Integer> data = scene.createWindowAndShow("Vorm aanmaken: " + shapeType, ShapeService.getFields(shapeType));
 
-        return scene.createWindowAndShow("Vorm aanmaken: " + shapeType, fields);
+        return MainApplication.shapeService.addShape(shapeType, data);
     }
+
 }

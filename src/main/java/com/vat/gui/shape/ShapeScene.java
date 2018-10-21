@@ -12,17 +12,19 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
+import java.util.Map;
 
 class ShapeScene {
 
     private Label testLabel;
     private int fieldCount = 0;
 
-    boolean createWindowAndShow() {
+    HashMap<String, Integer> createWindowAndShow() {
         return this.createWindowAndShow("Test label!", new HashMap<String, String>());
     }
 
-    boolean createWindowAndShow(String text, HashMap<String, String> fields) {
+    HashMap<String, Integer> createWindowAndShow(String text, HashMap<String, String> fields) {
+        HashMap<String, TextField> textFields = new HashMap<>();
         Stage window = new Stage();
         GridPane grid = new GridPane();
         grid.setVgap(10);
@@ -35,8 +37,6 @@ class ShapeScene {
         System.out.println(fields);
         layout.getChildren().removeAll(grid);
 
-
-
         for ( HashMap.Entry<String, String> entry : fields.entrySet()) {
             Label fieldLabel = new Label(entry.getValue());
             grid.add(fieldLabel, 0, fieldCount);
@@ -46,6 +46,8 @@ class ShapeScene {
             fieldInput.setPrefWidth(240);
             grid.add(fieldInput, 0, fieldCount);
             fieldCount++;
+
+            textFields.put(entry.getKey(), fieldInput);
         }
 
         window.initModality(Modality.APPLICATION_MODAL);
@@ -68,6 +70,13 @@ class ShapeScene {
         window.setScene(scene);
         window.showAndWait();
 
-        return true;
+        HashMap<String, Integer> data = new HashMap<>();
+
+        for (HashMap.Entry<String, TextField> entry : textFields.entrySet()) {
+            TextField textField = entry.getValue();
+            data.put(entry.getKey(), Integer.parseInt(textField.getText()));
+        }
+
+        return data;
     }
 }

@@ -14,6 +14,12 @@ public class Cube implements Shape {
         put("width", "Breedte:");
     }};
 
+    private int width;
+
+    public Cube(int width) {
+        this.width = width;
+    }
+
     public static HashMap<String, String> getFields() {
         return fields;
     }
