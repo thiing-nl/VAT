@@ -22,8 +22,8 @@ public class StorageService {
                 return objectStorage;
             case STORAGE_TYPE_SQL:
                 return sqlStorage;
+            default:
+                return null;
         }
-
-        return null;
     }
 }

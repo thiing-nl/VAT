@@ -144,9 +144,9 @@ public class Pyramid implements Shape {
      */
     @Override
     public void setData(HashMap<String, Integer> data) {
-        this.length = data.getOrDefault("length", 0);
-        this.height = data.getOrDefault("height", 0);
-        this.width = data.getOrDefault("width", 0);
+        this.setLength(data.getOrDefault("length", 0));
+        this.setHeight(data.getOrDefault("height", 0));
+        this.setWidth(data.getOrDefault("width", 0));
     }
 
     /**

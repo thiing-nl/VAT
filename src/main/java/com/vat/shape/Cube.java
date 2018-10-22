@@ -15,7 +15,7 @@ public class Cube implements Shape {
     private int width;
 
     public Cube(int width) {
-        this.width = width;
+        this.setWidth(width);
     }
 
     @Override
@@ -27,7 +27,6 @@ public class Cube implements Shape {
     public String getType() {
         return this.type;
     }
-
 
     public int getWidth() {
         return width;

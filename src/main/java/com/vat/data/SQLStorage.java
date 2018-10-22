@@ -5,19 +5,24 @@ import com.vat.shape.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class SQLStorage implements StorageInterface {
 
+    private static String databaseUrl = "jdbc:mysql://localhost:3306/vat?useSSL=false&serverTimezone=UTC";
+
     private Connection connection;
 
-    public Connection newConnection() throws Exception {
-        return connect();
+    public static void setDatabaseUrl(String databaseUrl) {
+        SQLStorage.databaseUrl = databaseUrl;
+    }
+
+    public static String getDatabaseUrl() {
+        return databaseUrl;
     }
 
     private static Connection connect() throws Exception {
         return DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/vat?useSSL=false&serverTimezone=UTC",
+                databaseUrl,
                 "vat",
                 "$u_7h~M3dTc#*q2x4_L;oqJkc7wyx^/n"
         );
@@ -30,6 +35,10 @@ public class SQLStorage implements StorageInterface {
         } catch (Exception exception) {
             return false;
         }
+    }
+
+    public Connection newConnection() throws Exception {
+        return connect();
     }
 
     @Override

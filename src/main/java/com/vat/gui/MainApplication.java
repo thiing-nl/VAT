@@ -184,7 +184,7 @@ public class MainApplication extends Application {
         }
 
         volumeText.setText("0.0");
-        totalVolumeText.setText(String.format("%s", shapeService.calculateVolume()));
+        totalVolumeText.setText(String.format("%s", shapeService.calculateTotalVolume()));
 
         shapeList.getItems().addAll(shapes);
     }
@@ -217,19 +217,19 @@ public class MainApplication extends Application {
     private MenuBar createMenu() {
         Menu fileMenu = new Menu("Bestand");
 
-        MenuItem load = new MenuItem("Inladen");
-        load.setOnAction(e -> {
+        MenuItem save = new MenuItem("Opslaan");
+        save.setOnAction(e -> {
             window.hide();
-            if (LoadShapes.display()) {
+            if (SaveShapes.display()) {
                 window.show();
                 this.updateView();
             }
         });
 
-        MenuItem save = new MenuItem("Opslaan");
-        save.setOnAction(e -> {
+        MenuItem load = new MenuItem("Inladen");
+        load.setOnAction(e -> {
             window.hide();
-            if (SaveShapes.display()) {
+            if (LoadShapes.display()) {
                 window.show();
                 this.updateView();
             }
@@ -240,8 +240,8 @@ public class MainApplication extends Application {
 
         fileMenu.getItems()
                 .addAll(
-                        load,
                         save,
+                        load,
                         new SeparatorMenuItem(),
                         close
                 );

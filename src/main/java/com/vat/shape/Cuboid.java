@@ -34,9 +34,9 @@ public class Cuboid implements Shape {
      * @param height
      */
     public Cuboid(int length, int width, int height) {
-        this.length = length;
-        this.width = width;
-        this.height = height;
+        this.setLength(length);
+        this.setWidth(width);
+        this.setHeight(height);
     }
 
     @Override
