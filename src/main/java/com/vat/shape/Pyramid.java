@@ -48,7 +48,17 @@ public class Pyramid implements Shape {
     }
 
     /**
+     * Receives the length of the Pyramid
+     *
+     * @return - Length of Pyramid
+     */
+    public int getLength() {
+        return length;
+    }
+
+    /**
      * Setting the Length of the Pyramid
+     *
      * @param length - Length of the Pyramid
      */
     public void setLength(int length) {
@@ -56,7 +66,17 @@ public class Pyramid implements Shape {
     }
 
     /**
+     * Receives the width of the Pyramid
+     *
+     * @return - Width of Pyramid
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
      * Setting the Width of the Pyramid
+     *
      * @param width - Width of the Pyramid
      */
     public void setWidth(int width) {
@@ -64,7 +84,17 @@ public class Pyramid implements Shape {
     }
 
     /**
+     * Receives the Height of the Pyramid
+     *
+     * @return - Height of Pyramid
+     */
+    public int getHeight() {
+        return height;
+    }
+
+    /**
      * Setting the Height of the Pyramid
+     *
      * @param height - Height of the Pyramid
      */
     public void setHeight(int height) {
@@ -73,6 +103,7 @@ public class Pyramid implements Shape {
 
     /**
      * Receiving all fields for the Pyramid
+     *
      * @return - All fields
      */
     @Override
@@ -82,6 +113,7 @@ public class Pyramid implements Shape {
 
     /**
      * Receiving the type representation of Pyramid in String
+     *
      * @return - Type representation in String
      */
     @Override
@@ -91,6 +123,7 @@ public class Pyramid implements Shape {
 
     /**
      * Converts the Pyramid into a data HashMap
+     *
      * @return - Data HashMap
      */
     @Override
@@ -106,6 +139,7 @@ public class Pyramid implements Shape {
 
     /**
      * Converts a data HashMap into the properties of the Pyramid
+     *
      * @param data
      */
     @Override
@@ -117,6 +151,7 @@ public class Pyramid implements Shape {
 
     /**
      * Calculate Volume
+     *
      * @return - Volume of the Pyramid
      */
     @Override
@@ -127,6 +162,7 @@ public class Pyramid implements Shape {
     /**
      * Convert the Pyramid into a string representation
      * e.g used for the list
+     *
      * @return - String representation of the Pyramid
      */
     @Override

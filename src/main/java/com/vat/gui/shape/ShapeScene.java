@@ -84,7 +84,7 @@ class ShapeScene {
         createButton.setOnAction(e -> {
             HashMap<String, Integer> returnData = this.getReturnData();
             if (returnData.containsValue(0)) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Er zijn een of meerdere velden met de waarde 0.\nDe parameters van een vorm moeten meer dan 0 zijn.", ButtonType.OK);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Er zijn een of meerdere velden met de waarde 0.\nDe waarde van de parameters van deze vorm moeten meer dan 0 zijn.", ButtonType.OK);
                 alert.showAndWait();
             } else {
                 this.pressedAdd = true;

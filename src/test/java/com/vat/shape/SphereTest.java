@@ -31,4 +31,20 @@ class SphereTest {
 
         assertEquals(12, sphere.getRadius());
     }
+
+    @Test
+    void calculateVolume() {
+        Sphere sphere = new Sphere(2);
+
+        sphere.calculateVolume();
+
+        assertEquals((4.0 / 3.0) * Math.PI * Math.pow(2, 3), sphere.calculateVolume());
+    }
+
+    @Test
+    void testToString() {
+        Sphere sphere = new Sphere(7);
+
+        assertEquals(String.format("Bol (radius: %d)", 7), sphere.toString());
+    }
 }
