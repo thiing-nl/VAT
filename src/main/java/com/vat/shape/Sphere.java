@@ -27,7 +27,7 @@ public class Sphere implements Shape {
      * @param radius
      */
     public Sphere(int radius) {
-        this.radius = radius;
+        this.setRadius(radius);
     }
 
     @Override

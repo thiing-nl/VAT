@@ -58,7 +58,7 @@ public class ShapeService {
      *
      * @return
      */
-    public double calculateVolume() {
+    public double calculateTotalVolume() {
         double totalVolume = 0.0;
 
         for (Shape shape : shapes) {
@@ -85,7 +85,7 @@ public class ShapeService {
      * @return - Returns the created Shape
      */
     public Shape addShape(String shapeType, HashMap<String, Integer> data) {
-        Shape newShape = null;
+        Shape newShape;
 
         switch (shapeType) {
             case "Blok":
@@ -106,13 +106,11 @@ public class ShapeService {
             case "Piramide":
                 newShape = new Pyramid(data.get("length"), data.get("width"), data.get("height"));
                 break;
+            default:
+                return null;
         }
 
-        if (newShape != null) {
-            this.shapes.add(newShape);
-            return newShape;
-        }
-
-        return null;
+        this.shapes.add(newShape);
+        return newShape;
     }
 }

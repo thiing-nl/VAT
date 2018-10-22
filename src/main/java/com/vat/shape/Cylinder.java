@@ -27,8 +27,8 @@ public class Cylinder implements Shape {
      * @param height
      */
     public Cylinder(int radius, int height) {
-        this.radius = radius;
-        this.height = height;
+        this.setRadius(radius);
+        this.setHeight(height);
     }
 
     @Override

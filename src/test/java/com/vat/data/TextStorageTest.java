@@ -25,6 +25,9 @@ class TextStorageTest extends DataTestBase {
         shapeService.addShape(new Cuboid(10, 15, 20));
         shapeService.addShape(new Cube(20));
         shapeService.addShape(new Pyramid(50, 30, 10));
+        shapeService.addShape(new Cone(50, 30));
+        shapeService.addShape(new Cylinder(50, 30));
+        shapeService.addShape(new Sphere(20));
 
         ArrayList<Shape> shapes = shapeService.getShapes();
 
@@ -39,7 +42,7 @@ class TextStorageTest extends DataTestBase {
             loadedShapes = storageInterface.loadData(fileLocation);
         } catch (Exception e) {
             e.printStackTrace();
-            if(e instanceof FileNotFoundException) {
+            if (e instanceof FileNotFoundException) {
                 fail("Could not find file location");
             } else {
                 fail("Unknown problem while trying to load/save the Shapes using Text Storage");
@@ -47,12 +50,11 @@ class TextStorageTest extends DataTestBase {
         }
 
         assertEquals(shapes.size(), loadedShapes.size());
-        assertEquals(shapes.get(0).getData(), loadedShapes.get(0).getData());
-        assertEquals(shapes.get(0).getFields(), loadedShapes.get(0).getFields());
-        assertEquals(shapes.get(1).getData(), loadedShapes.get(1).getData());
-        assertEquals(shapes.get(1).getFields(), loadedShapes.get(1).getFields());
-        assertEquals(shapes.get(2).getData(), loadedShapes.get(2).getData());
-        assertEquals(shapes.get(2).getFields(), loadedShapes.get(2).getFields());
+
+        for (int i = 0; i < shapes.size(); i++) {
+            assertEquals(shapes.get(i).getData(), loadedShapes.get(i).getData());
+            assertEquals(shapes.get(i).getFields(), loadedShapes.get(i).getFields());
+        }
 
         createdFiles.add(fileLocation);
     }
@@ -63,6 +65,9 @@ class TextStorageTest extends DataTestBase {
         shapeService.addShape(new Cuboid(10, 15, 20));
         shapeService.addShape(new Cube(20));
         shapeService.addShape(new Pyramid(50, 30, 10));
+        shapeService.addShape(new Cone(50, 30));
+        shapeService.addShape(new Cylinder(50, 30));
+        shapeService.addShape(new Sphere(20));
 
         String fileLocation = generateFileLocation("Text", "json");
 
@@ -73,7 +78,7 @@ class TextStorageTest extends DataTestBase {
             storageInterface.saveData(fileLocation, shapeService.getShapes());
         } catch (Exception e) {
             e.printStackTrace();
-            if(e instanceof FileNotFoundException) {
+            if (e instanceof FileNotFoundException) {
                 fail("Could not find file location");
             } else {
                 fail("Unknown problem while trying to save the Shapes using Text Storage");
@@ -85,5 +90,21 @@ class TextStorageTest extends DataTestBase {
         assertTrue(file.exists());
 
         createdFiles.add(fileLocation);
+    }
+
+    @Test
+    void loadData1() {
+        TextStorage textStorage = (TextStorage) new StorageService()
+                .getStorage(StorageService.STORAGE_TYPE_TEXT);
+
+        assertThrows(UnsupportedOperationException.class, textStorage::loadData);
+    }
+
+    @Test
+    void saveData1() {
+        TextStorage textStorage = (TextStorage) new StorageService()
+                .getStorage(StorageService.STORAGE_TYPE_TEXT);
+
+        assertThrows(UnsupportedOperationException.class, () -> textStorage.saveData(new ArrayList<>()));
     }
 }

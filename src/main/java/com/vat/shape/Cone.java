@@ -20,8 +20,8 @@ public class Cone implements Shape {
     private int height;
 
     public Cone(int radius, int height) {
-        this.radius = radius;
-        this.height = height;
+        this.setRadius(radius);
+        this.setHeight(height);
     }
 
     @Override
