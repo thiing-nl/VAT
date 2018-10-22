@@ -3,6 +3,8 @@ package com.vat.gui.data;
 import com.vat.data.SQLStorage;
 import com.vat.data.StorageService;
 import com.vat.gui.MainApplication;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -32,10 +34,13 @@ class DataScene {
         window.setMinWidth(300);
         window.setMinHeight(200);
 
+        Label label = new Label();
+
         VBox layout = new VBox();
-        layout.setAlignment(Pos.TOP_CENTER);
-        layout.setSpacing(20);
+        layout.setAlignment(Pos.CENTER);
+        layout.setSpacing(10);
         layout.setPadding(new Insets(30));
+        layout.getChildren().add(label);
 
         HBox toggle = new HBox();
         toggle.setSpacing(10);
@@ -51,11 +56,13 @@ class DataScene {
         switch (type) {
             case DATA_SCENE_TYPE_LOAD:
                 window.setTitle("VAT - Inladen");
+                label.setText("Selecteer inlaad manier:");
                 rightButton.setText("Inladen");
                 rightButton.setOnAction(e -> load());
                 break;
             case DATA_SCENE_TYPE_SAVE:
                 window.setTitle("VAT - Opslaan");
+                label.setText("Selecteer opslaan manier:");
                 rightButton.setText("Opslaan");
                 rightButton.setOnAction(e -> save());
                 break;
@@ -64,6 +71,7 @@ class DataScene {
         HBox buttons = new HBox(10);
         buttons.getChildren().addAll(closeButton, rightButton);
         buttons.setAlignment(Pos.CENTER);
+        buttons.setPadding(new Insets(20,0,0,0));
 
         layout.getChildren().addAll(toggle, buttons);
 
@@ -80,6 +88,12 @@ class DataScene {
      */
     private static ToggleGroup createToggleGroup(HBox toggle) {
         ToggleGroup toggleGroup = new ToggleGroup();
+
+        toggleGroup.selectedToggleProperty().addListener((ov, old_toggle, new_toggle) -> {
+            if (toggleGroup.getSelectedToggle() == null) {
+                toggleGroup.getToggles().get(0).setSelected(true);
+            }
+        });
 
         ToggleButton tb1 = new ToggleButton("Tekst");
         tb1.setUserData(StorageService.STORAGE_TYPE_TEXT);
