@@ -48,9 +48,9 @@ public class Pyramid implements Shape {
     }
 
     /**
-     * Receives the length of the Pyramid
+     * Receives the Length of the Pyramid
      *
-     * @return - Length of Pyramid
+     * @return Length of Pyramid
      */
     public int getLength() {
         return length;
@@ -66,9 +66,9 @@ public class Pyramid implements Shape {
     }
 
     /**
-     * Receives the width of the Pyramid
+     * Receives the Width of the Pyramid
      *
-     * @return - Width of Pyramid
+     * @return Width of Pyramid
      */
     public int getWidth() {
         return width;
@@ -86,7 +86,7 @@ public class Pyramid implements Shape {
     /**
      * Receives the Height of the Pyramid
      *
-     * @return - Height of Pyramid
+     * @return Height of Pyramid
      */
     public int getHeight() {
         return height;
@@ -104,7 +104,7 @@ public class Pyramid implements Shape {
     /**
      * Receiving all fields for the Pyramid
      *
-     * @return - All fields
+     * @return All fields
      */
     @Override
     public HashMap<String, String> getFields() {
@@ -114,7 +114,7 @@ public class Pyramid implements Shape {
     /**
      * Receiving the type representation of Pyramid in String
      *
-     * @return - Type representation in String
+     * @return Type representation in String
      */
     @Override
     public String getType() {
@@ -124,7 +124,7 @@ public class Pyramid implements Shape {
     /**
      * Converts the Pyramid into a data HashMap
      *
-     * @return - Data HashMap
+     * @return Data HashMap
      */
     @Override
     public HashMap<String, Integer> getData() {
@@ -140,7 +140,7 @@ public class Pyramid implements Shape {
     /**
      * Converts a data HashMap into the properties of the Pyramid
      *
-     * @param data
+     * @param data - HashMap with the data
      */
     @Override
     public void setData(HashMap<String, Integer> data) {
@@ -150,9 +150,9 @@ public class Pyramid implements Shape {
     }
 
     /**
-     * Calculate Volume
+     * Calculate Volume of the Pyramid
      *
-     * @return - Volume of the Pyramid
+     * @return Volume of the Pyramid
      */
     @Override
     public double calculateVolume() {
@@ -161,9 +161,9 @@ public class Pyramid implements Shape {
 
     /**
      * Convert the Pyramid into a string representation
-     * e.g used for the list
+     * e.g for showing in the list
      *
-     * @return - String representation of the Pyramid
+     * @return String representation of the Pyramid
      */
     @Override
     public String toString() {

@@ -14,7 +14,7 @@ public class ShapeService {
      * Get the fields for a ShapeType
      *
      * @param shapeType - shapeType in String
-     * @return - HashMap containing the field with the label text
+     * @return HashMap containing the field with the label text
      */
     public static HashMap<String, String> getFields(String shapeType) {
         switch (shapeType) {
@@ -38,7 +38,7 @@ public class ShapeService {
     /**
      * Get all current shapes
      *
-     * @return - Shapes
+     * @return Shapes
      */
     public ArrayList<Shape> getShapes() {
         return this.shapes;
@@ -47,7 +47,7 @@ public class ShapeService {
     /**
      * Set the Shapes
      *
-     * @param shapes
+     * @param shapes - Shapes to be set in the ShapeService
      */
     public void setShapes(ArrayList<Shape> shapes) {
         this.shapes = shapes;
@@ -56,7 +56,7 @@ public class ShapeService {
     /**
      * Calculate the Volume for all of the Shapes in the ShapeService
      *
-     * @return
+     * @return Total Volume of the ShapeService
      */
     public double calculateTotalVolume() {
         double totalVolume = 0.0;
@@ -82,7 +82,7 @@ public class ShapeService {
      *
      * @param shapeType - Shape Type in String
      * @param data      - HashMap of data to create the shapes from
-     * @return - Returns the created Shape
+     * @return Returns the created Shape
      */
     public Shape addShape(String shapeType, HashMap<String, Integer> data) {
         Shape newShape;

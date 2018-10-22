@@ -15,10 +15,16 @@ import java.util.ArrayList;
 
 public class TextStorage implements StorageInterface {
 
-    Type shapeList = new TypeToken<ArrayList<Shape>>() {
+    /**
+     * Shape List Type
+     */
+    private Type shapeList = new TypeToken<ArrayList<Shape>>() {
     }.getType();
 
-    JsonDeserializer<ArrayList<Shape>> deserializer = (json, typeOfT, context) -> {
+    /**
+     * Deserializer for the JSON file
+     */
+    private JsonDeserializer<ArrayList<Shape>> deserializer = (json, typeOfT, context) -> {
         ArrayList<Shape> shapes = new ArrayList<>();
         JsonArray jsonArray = (JsonArray) json;
 
@@ -50,11 +56,23 @@ public class TextStorage implements StorageInterface {
         return shapes;
     };
 
+    /**
+     * Load data without a location given
+     *
+     * @throws UnsupportedOperationException
+     */
     @Override
     public ArrayList<Shape> loadData() {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Loads the data for a given location and converts it into a shape list
+     *
+     * @param location - Location of the Text File
+     * @return Shape List
+     * @throws Exception
+     */
     @Override
     public ArrayList<Shape> loadData(String location) throws Exception {
         FileReader fileReader = new FileReader(location);
@@ -75,11 +93,24 @@ public class TextStorage implements StorageInterface {
         return customGson.fromJson(file.toString(), shapeList);
     }
 
+    /**
+     * Save text storage without location
+     *
+     * @param shapes - Shapes list to save
+     * @throws UnsupportedOperationException
+     */
     @Override
     public void saveData(ArrayList<Shape> shapes) {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Save a Shape List to a given location
+     *
+     * @param location - Location to save the Text to
+     * @param shapes   - Shapes to save
+     * @throws Exception
+     */
     @Override
     public void saveData(String location, ArrayList<Shape> shapes) throws Exception {
         String json = new Gson().toJson(shapes);

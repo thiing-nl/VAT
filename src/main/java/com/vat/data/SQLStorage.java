@@ -8,18 +8,40 @@ import java.util.HashMap;
 
 public class SQLStorage implements StorageInterface {
 
+    /**
+     * Database URL we will access
+     */
     private static String databaseUrl = "jdbc:mysql://localhost:3306/vat?useSSL=false&serverTimezone=UTC";
 
+    /**
+     * Active connection to the database.
+     */
     private Connection connection;
 
-    public static void setDatabaseUrl(String databaseUrl) {
-        SQLStorage.databaseUrl = databaseUrl;
-    }
-
-    public static String getDatabaseUrl() {
+    /**
+     * Get the current database url
+     *
+     * @return Current database url
+     */
+    static String getDatabaseUrl() {
         return databaseUrl;
     }
 
+    /**
+     * Setter for the Database Url
+     *
+     * @param databaseUrl - New Database Url
+     */
+    static void setDatabaseUrl(String databaseUrl) {
+        SQLStorage.databaseUrl = databaseUrl;
+    }
+
+    /**
+     * Connect to the current databaseUrl with username and password
+     *
+     * @return Returns the Connection
+     * @throws Exception
+     */
     private static Connection connect() throws Exception {
         return DriverManager.getConnection(
                 databaseUrl,
@@ -28,6 +50,11 @@ public class SQLStorage implements StorageInterface {
         );
     }
 
+    /**
+     * Check whether or not we can connect to the database without problems
+     *
+     * @return State
+     */
     public static boolean canMakeConnection() {
         try {
             connect();
@@ -37,10 +64,22 @@ public class SQLStorage implements StorageInterface {
         }
     }
 
-    public Connection newConnection() throws Exception {
+    /**
+     * Create a new Connection to the database
+     *
+     * @return New Connection
+     * @throws Exception
+     */
+    Connection newConnection() throws Exception {
         return connect();
     }
 
+    /**
+     * Load data from the SQL server
+     *
+     * @return Shape list
+     * @throws Exception
+     */
     @Override
     public ArrayList<Shape> loadData() throws Exception {
         this.connection = connect();
@@ -87,6 +126,12 @@ public class SQLStorage implements StorageInterface {
         return shapes;
     }
 
+    /**
+     * Saves a single Shape to the database
+     *
+     * @param shape - Shape to save
+     * @throws Exception
+     */
     private void saveShape(Shape shape) throws Exception {
         PreparedStatement statement = connection.prepareStatement("INSERT INTO shapes (type, length, width, height, radius) VALUES (?, ?, ?, ?, ?)");
 
@@ -101,11 +146,25 @@ public class SQLStorage implements StorageInterface {
         statement.executeUpdate();
     }
 
+    /**
+     * Loads the data with a location given
+     * (we will ignore the location and run loadData instead)
+     *
+     * @param location - Location we would like to connect to
+     * @return List of Shapes
+     * @throws Exception
+     */
     @Override
     public ArrayList<Shape> loadData(String location) throws Exception {
         return this.loadData();
     }
 
+    /**
+     * Saves the given list of shapes to the database
+     *
+     * @param shapes - List of Shapes
+     * @throws Exception
+     */
     @Override
     public void saveData(ArrayList<Shape> shapes) throws Exception {
         this.connection = connect();
@@ -120,6 +179,14 @@ public class SQLStorage implements StorageInterface {
         connection.close();
     }
 
+    /**
+     * Save list of shapes with given location
+     * (we will ignore the location and run saveData(shapes) instead)
+     *
+     * @param location - Location we would like to save to
+     * @param shapes   - List of Shapes
+     * @throws Exception
+     */
     @Override
     public void saveData(String location, ArrayList<Shape> shapes) throws Exception {
         this.saveData(shapes);

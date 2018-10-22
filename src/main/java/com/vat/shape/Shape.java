@@ -23,9 +23,24 @@ public interface Shape extends Serializable {
      */
     String toString();
 
+    /**
+     * Receives the fields
+     *
+     * @return Fields for Shape
+     */
     HashMap<String, String> getFields();
 
+    /**
+     * Get Data for the Shape
+     *
+     * @return Data for the Shape
+     */
     HashMap<String, Integer> getData();
 
+    /**
+     * Set Data for the Shape
+     *
+     * @param data - Data for the Shape
+     */
     void setData(HashMap<String, Integer> data);
 }
