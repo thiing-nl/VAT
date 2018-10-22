@@ -4,8 +4,8 @@ import com.vat.gui.data.LoadShapes;
 import com.vat.gui.data.SaveShapes;
 import com.vat.gui.shape.EditShape;
 import com.vat.gui.shape.NewShape;
-import com.vat.model.Shape;
-import com.vat.service.ShapeService;
+import com.vat.shape.Shape;
+import com.vat.shape.ShapeService;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -27,6 +27,8 @@ public class MainApplication extends Application {
     private ListView<String> shapeList;
     private TextField volumeText;
     private TextField totalVolumeText;
+    private Button deleteButton;
+    private Shape previousSelectedShape = null;
     private String previousSelectedItem = null;
 
     public static void main(String[] args) {
@@ -74,27 +76,7 @@ public class MainApplication extends Application {
         // Left Pane
 
         // Shape Selector
-        VBox shapeTypeBox = new VBox();
-        Label shapeTypeLabel = new Label("Aanmaken Figuur:");
-        shapeTypeComboBox = new ComboBox<String>();
-        shapeTypeComboBox.setPrefWidth(200.0);
-        shapeTypeComboBox.setPromptText("Selecteer...");
-        shapeTypeComboBox.getItems().addAll("Blok", "Bol", "Cilinder", "Kegel", "Kubus", "Piramide");
-        shapeTypeComboBox
-                .valueProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        System.out.println(newValue);
-                        window.hide();
-
-                        NewShape.display(newValue);
-                        window.show();
-                        this.updateView();
-                        Platform.runLater(() -> shapeTypeComboBox.setValue(null));
-                    }
-                });
-
-        shapeTypeBox.getChildren().addAll(shapeTypeLabel, shapeTypeComboBox);
+        VBox shapeTypeBox = this.createShapeTypeBox();
 
         // Volume
         VBox volumeBox = new VBox();
@@ -105,7 +87,7 @@ public class MainApplication extends Application {
         volumeText.setDisable(true);
         volumeBox.getChildren().addAll(volumeLabel, volumeText);
 
-        // Volume
+        // Total Volume
         VBox totalVolumeBox = new VBox();
         Label totalVolumeLabel = new Label("Totale Inhoud: (m³)");
         totalVolumeText = new TextField();
@@ -118,6 +100,7 @@ public class MainApplication extends Application {
         leftPane.add(volumeBox, 0, 1);
         leftPane.add(totalVolumeBox, 0, 2);
 
+        // Shape List Box
         VBox shapeListBox = new VBox();
         Label shapeListHeader = new Label("Figuren:");
 
@@ -129,29 +112,35 @@ public class MainApplication extends Application {
             int selectedIndex = shapeList.getSelectionModel()
                     .getSelectedIndex();
 
+            if (selectedItem == null) {
+                return;
+            }
+
             if (click.getClickCount() == 1) {
                 System.out.println("selectedItem: " + selectedItem);
                 System.out.println("this.previousSelectedItem: " + this.previousSelectedItem);
-                if (this.previousSelectedItem == null) {
-                    Shape shape = shapeService.getShapes().get(selectedIndex);
-                    volumeText.setText(String.format("%s", shape.calculateVolume()));
-                    this.previousSelectedItem = selectedItem;
-                    shapeListHeader.setText("Hint: Dubbelklikken voor bewerken.");
-                } else if (this.previousSelectedItem.equals(selectedItem)) {
+                if (this.previousSelectedItem != null && this.previousSelectedItem.equals(selectedItem)) {
                     this.previousSelectedItem = null;
+                    this.previousSelectedShape = null;
                     volumeText.setText("0.0");
                     shapeListHeader.setText("Figuren:");
+                    deleteButton.setDisable(true);
                     Platform.runLater(() -> shapeList.getSelectionModel().select(null));
                 } else {
                     Shape shape = shapeService.getShapes().get(selectedIndex);
                     volumeText.setText(String.format("%s", shape.calculateVolume()));
                     this.previousSelectedItem = selectedItem;
+                    this.previousSelectedShape = shape;
+                    deleteButton.setDisable(false);
                     shapeListHeader.setText("Hint: Dubbelklikken voor bewerken.");
                 }
             } else if (click.getClickCount() == 2) {
                 window.hide();
-
                 EditShape.display(shapeService.getShapes().get(selectedIndex));
+                this.previousSelectedItem = null;
+                this.previousSelectedShape = null;
+                deleteButton.setDisable(true);
+                shapeListHeader.setText("Figuren:");
                 window.show();
                 updateView();
             }
@@ -159,7 +148,24 @@ public class MainApplication extends Application {
 
         shapeListBox.getChildren().addAll(shapeListHeader, shapeList);
 
+        deleteButton = new Button("Verwijder geselecteerde");
+        deleteButton.setDisable(true);
+        deleteButton.setOnAction(e -> {
+            if (previousSelectedItem != null) {
+                System.out.println(previousSelectedShape);
+                System.out.println(shapeService.getShapes().indexOf(previousSelectedShape));
+                shapeService.getShapes().remove(previousSelectedShape);
+                previousSelectedShape = null;
+                previousSelectedItem = null;
+                deleteButton.setDisable(false);
+                shapeListHeader.setText("Figuren:");
+
+                this.updateView();
+            }
+        });
+
         rightPane.add(shapeListBox, 0, 0);
+        rightPane.add(deleteButton, 0, 1);
 
         this.updateView();
 
@@ -181,6 +187,31 @@ public class MainApplication extends Application {
         totalVolumeText.setText(String.format("%s", shapeService.calculateVolume()));
 
         shapeList.getItems().addAll(shapes);
+    }
+
+    private VBox createShapeTypeBox() {
+        VBox shapeTypeBox = new VBox();
+        Label shapeTypeLabel = new Label("Aanmaken Figuur:");
+        shapeTypeComboBox = new ComboBox<String>();
+        shapeTypeComboBox.setPrefWidth(200.0);
+        shapeTypeComboBox.setPromptText("Selecteer...");
+        shapeTypeComboBox.getItems().addAll("Blok", "Bol", "Cilinder", "Kegel", "Kubus", "Piramide");
+        shapeTypeComboBox
+                .valueProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        System.out.println(newValue);
+                        window.hide();
+
+                        NewShape.display(newValue);
+                        window.show();
+                        this.updateView();
+                        Platform.runLater(() -> shapeTypeComboBox.setValue(null));
+                    }
+                });
+
+        shapeTypeBox.getChildren().addAll(shapeTypeLabel, shapeTypeComboBox);
+        return shapeTypeBox;
     }
 
     private MenuBar createMenu() {

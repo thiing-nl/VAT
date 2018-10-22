@@ -1,25 +1,9 @@
-package com.vat.model;
+package com.vat.shape;
 
-import com.vat.model.Shape;
 
 import java.util.HashMap;
 
 public class Cuboid implements Shape {
-
-    /**
-     * Length of the Cuboid
-     */
-    private int length;
-
-    /**
-     * Width of the Cuboid
-     */
-    private int width;
-
-    /**
-     * Height of the Cuboid
-     */
-    private int height;
 
     /**
      * Fields of the Cuboid
@@ -29,6 +13,19 @@ public class Cuboid implements Shape {
         put("width", "Breedte:");
         put("height", "Hoogte:");
     }};
+    public final String type = "Cuboid";
+    /**
+     * Length of the Cuboid
+     */
+    private int length;
+    /**
+     * Width of the Cuboid
+     */
+    private int width;
+    /**
+     * Height of the Cuboid
+     */
+    private int height;
 
 
     /**
@@ -72,23 +69,8 @@ public class Cuboid implements Shape {
     }
 
     @Override
-    public int getId() {
-        return 0;
-    }
-
-    @Override
-    public void setId(int id) {
-
-    }
-
-    @Override
     public String getType() {
-        return null;
-    }
-
-    @Override
-    public void setType(String type) {
-
+        return this.type;
     }
 
     @Override
@@ -112,31 +94,6 @@ public class Cuboid implements Shape {
     @Override
     public double calculateVolume() {
         return this.length * this.width * this.height;
-    }
-
-    @Override
-    public String toJSON() {
-        return null;
-    }
-
-    @Override
-    public void saveSQL() {
-
-    }
-
-    @Override
-    public void loadJSON(int jsonObject) {
-
-    }
-
-    @Override
-    public void loadSQL(int id) {
-
-    }
-
-    @Override
-    public void loadString(String text) {
-
     }
 
     @Override

@@ -1,8 +1,10 @@
-package com.vat.model;
+package com.vat.shape;
+
 
 import java.util.HashMap;
 
 public class Sphere implements Shape {
+
 
     /**
      * Fields of the Sphere
@@ -10,6 +12,12 @@ public class Sphere implements Shape {
     public static HashMap<String, String> fields = new HashMap<String, String>() {{
         put("radius", "Radius:");
     }};
+
+    /**
+     * Type of the Shape
+     */
+    public final String type = "Sphere";
+
     /**
      * Radius of the Sphere
      */
@@ -36,23 +44,8 @@ public class Sphere implements Shape {
     }
 
     @Override
-    public int getId() {
-        return 0;
-    }
-
-    @Override
-    public void setId(int id) {
-
-    }
-
-    @Override
     public String getType() {
-        return null;
-    }
-
-    @Override
-    public void setType(String type) {
-
+        return this.type;
     }
 
     @Override
@@ -71,33 +64,7 @@ public class Sphere implements Shape {
 
     @Override
     public double calculateVolume() {
-//         4/3 × π × r ³
         return (4.0 / 3.0) * Math.PI * Math.pow(radius, 3);
-    }
-
-    @Override
-    public String toJSON() {
-        return null;
-    }
-
-    @Override
-    public void saveSQL() {
-
-    }
-
-    @Override
-    public void loadJSON(int jsonObject) {
-
-    }
-
-    @Override
-    public void loadSQL(int id) {
-
-    }
-
-    @Override
-    public void loadString(String text) {
-
     }
 
     @Override

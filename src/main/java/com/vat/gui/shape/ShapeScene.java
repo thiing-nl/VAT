@@ -6,9 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -20,6 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 class ShapeScene {
 
+    HashMap<String, TextField> textFields;
     private Label testLabel;
     private int fieldCount = 0;
     private boolean pressedAdd = false;
@@ -29,7 +28,7 @@ class ShapeScene {
     }
 
     HashMap<String, Integer> createWindowAndShow(String text, HashMap<String, String> fields, HashMap<String, Integer> data) {
-        HashMap<String, TextField> textFields = new HashMap<>();
+        textFields = new HashMap<>();
         Stage window = new Stage();
         GridPane grid = new GridPane();
         grid.setVgap(10);
@@ -63,7 +62,7 @@ class ShapeScene {
         }
 
         window.initModality(Modality.APPLICATION_MODAL);
-        if(data.size() == 0) {
+        if (data.size() == 0) {
             window.setTitle("VAT - Vorm aanmaken");
         } else {
             window.setTitle("VAT - Vorm veranderen");
@@ -77,14 +76,20 @@ class ShapeScene {
         closeButton.setOnAction(e -> window.close());
 
         Button createButton;
-        if(data.size() == 0) {
+        if (data.size() == 0) {
             createButton = new Button("Aanmaken");
         } else {
             createButton = new Button("Veranderen");
         }
         createButton.setOnAction(e -> {
-            this.pressedAdd = true;
-            window.close();
+            HashMap<String, Integer> returnData = this.getReturnData();
+            if (returnData.containsValue(0)) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Er zijn een of meerdere velden met de waarde 0.\nDe parameters van een vorm moeten meer dan 0 zijn.", ButtonType.OK);
+                alert.showAndWait();
+            } else {
+                this.pressedAdd = true;
+                window.close();
+            }
         });
 
         HBox buttons = new HBox();
@@ -101,16 +106,20 @@ class ShapeScene {
 
         System.out.println(this.pressedAdd);
         if (this.pressedAdd) {
-            HashMap<String, Integer> returnData = new HashMap<>();
-
-            for (HashMap.Entry<String, TextField> entry : textFields.entrySet()) {
-                TextField textField = entry.getValue();
-                returnData.put(entry.getKey(), Integer.parseInt(textField.getText()));
-            }
-
-            return returnData;
+            return this.getReturnData();
         }
 
         return null;
+    }
+
+    private HashMap<String, Integer> getReturnData() {
+        HashMap<String, Integer> returnData = new HashMap<>();
+
+        for (HashMap.Entry<String, TextField> entry : textFields.entrySet()) {
+            TextField textField = entry.getValue();
+            returnData.put(entry.getKey(), Integer.parseInt(textField.getText()));
+        }
+
+        return returnData;
     }
 }

@@ -1,19 +1,9 @@
-package com.vat.model;
+package com.vat.shape;
 
-import com.vat.model.Shape;
 
 import java.util.HashMap;
 
 public class Cylinder implements Shape {
-
-    /**
-     * Radius of the Cylinder
-     */
-    private int radius;
-    /**
-     * Height of the Cylinder
-     */
-    private int height;
 
     /**
      * Fields of the Cylinder
@@ -22,6 +12,15 @@ public class Cylinder implements Shape {
         put("radius", "Radius:");
         put("height", "Hoogte:");
     }};
+    public final String type = "Cylinder";
+    /**
+     * Radius of the Cylinder
+     */
+    private int radius;
+    /**
+     * Height of the Cylinder
+     */
+    private int height;
 
     /**
      * @param radius
@@ -54,23 +53,8 @@ public class Cylinder implements Shape {
     }
 
     @Override
-    public int getId() {
-        return 0;
-    }
-
-    @Override
-    public void setId(int id) {
-
-    }
-
-    @Override
     public String getType() {
-        return null;
-    }
-
-    @Override
-    public void setType(String type) {
-
+        return this.type;
     }
 
     @Override
@@ -92,31 +76,6 @@ public class Cylinder implements Shape {
     @Override
     public double calculateVolume() {
         return Math.PI * Math.pow(this.radius, 2) * this.height;
-    }
-
-    @Override
-    public String toJSON() {
-        return null;
-    }
-
-    @Override
-    public void saveSQL() {
-
-    }
-
-    @Override
-    public void loadJSON(int jsonObject) {
-
-    }
-
-    @Override
-    public void loadSQL(int id) {
-
-    }
-
-    @Override
-    public void loadString(String text) {
-
     }
 
     @Override

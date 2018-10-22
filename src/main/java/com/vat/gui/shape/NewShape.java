@@ -1,16 +1,12 @@
 package com.vat.gui.shape;
 
 import com.vat.gui.MainApplication;
-import com.vat.model.Shape;
-import com.vat.service.ShapeService;
+import com.vat.shape.Shape;
+import com.vat.shape.ShapeService;
 
 import java.util.HashMap;
 
 public class NewShape {
-
-    public static HashMap<String, Class> shapes = new HashMap<String, Class>() {{
-    }};
-
 
     public static Shape display(String shapeType) {
         ShapeScene scene = new ShapeScene();

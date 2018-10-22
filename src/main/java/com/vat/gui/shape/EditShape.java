@@ -1,6 +1,6 @@
 package com.vat.gui.shape;
 
-import com.vat.model.Shape;
+import com.vat.shape.Shape;
 
 import java.util.HashMap;
 

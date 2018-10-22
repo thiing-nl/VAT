@@ -1,6 +1,4 @@
-package com.vat.model;
-
-import com.vat.model.Shape;
+package com.vat.shape;
 
 import java.util.HashMap;
 
@@ -13,7 +11,7 @@ public class Cube implements Shape {
     public static HashMap<String, String> fields = new HashMap<String, String>() {{
         put("width", "Breedte:");
     }};
-
+    public final String type = "Cube";
     private int width;
 
     public Cube(int width) {
@@ -26,24 +24,10 @@ public class Cube implements Shape {
     }
 
     @Override
-    public int getId() {
-        return 0;
-    }
-
-    @Override
-    public void setId(int id) {
-
-    }
-
-    @Override
     public String getType() {
-        return null;
+        return this.type;
     }
 
-    @Override
-    public void setType(String type) {
-
-    }
 
     public int getWidth() {
         return width;
@@ -70,31 +54,6 @@ public class Cube implements Shape {
     @Override
     public double calculateVolume() {
         return Math.pow(this.width, 3);
-    }
-
-    @Override
-    public String toJSON() {
-        return null;
-    }
-
-    @Override
-    public void saveSQL() {
-
-    }
-
-    @Override
-    public void loadJSON(int jsonObject) {
-
-    }
-
-    @Override
-    public void loadSQL(int id) {
-
-    }
-
-    @Override
-    public void loadString(String text) {
-
     }
 
     @Override

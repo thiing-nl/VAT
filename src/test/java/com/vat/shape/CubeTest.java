@@ -1,4 +1,4 @@
-package com.vat.model;
+package com.vat.shape;
 
 import org.junit.jupiter.api.Test;
 

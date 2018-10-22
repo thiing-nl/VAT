@@ -10,7 +10,10 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="VAT_main" />
+    <orderEntry type="library" name="Gradle: mysql:mysql-connector-java:8.0.13" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.5" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.1.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.protobuf:protobuf-java:3.6.1" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.platform:junit-platform-commons:1.1.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.apiguardian:apiguardian-api:1.0.0" level="project" />

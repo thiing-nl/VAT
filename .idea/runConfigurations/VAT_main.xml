@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="VAT_main" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="com.vat.Main" />
+    <option name="MAIN_CLASS_NAME" value="com.vat.gui.MainApplication" />
     <module name="VAT_main" />
     <method v="2">
       <option name="Make" enabled="true" />

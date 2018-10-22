@@ -1,4 +1,5 @@
-package com.vat.model;
+package com.vat.shape;
+
 
 import java.util.HashMap;
 
@@ -12,7 +13,10 @@ public class Cone implements Shape {
         put("height", "Hoogte:");
     }};
 
+    public final String type = "Cone";
+
     private int radius;
+
     private int height;
 
     public Cone(int radius, int height) {
@@ -26,23 +30,8 @@ public class Cone implements Shape {
     }
 
     @Override
-    public int getId() {
-        return 0;
-    }
-
-    @Override
-    public void setId(int id) {
-
-    }
-
-    @Override
     public String getType() {
-        return null;
-    }
-
-    @Override
-    public void setType(String type) {
-
+        return this.type;
     }
 
     public int getRadius() {
@@ -79,33 +68,7 @@ public class Cone implements Shape {
 
     @Override
     public double calculateVolume() {
-//        1/3 × π × r ² × h
         return (1.0 / 3.0) * Math.PI * Math.pow(this.radius, 2) * this.height;
-    }
-
-    @Override
-    public String toJSON() {
-        return null;
-    }
-
-    @Override
-    public void saveSQL() {
-
-    }
-
-    @Override
-    public void loadJSON(int jsonObject) {
-
-    }
-
-    @Override
-    public void loadSQL(int id) {
-
-    }
-
-    @Override
-    public void loadString(String text) {
-
     }
 
     @Override
