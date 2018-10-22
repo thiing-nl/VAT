@@ -2,7 +2,6 @@ package com.vat.data;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import com.sun.codemodel.internal.JArray;
 import com.vat.shape.*;
 
 import java.io.BufferedReader;
@@ -10,7 +9,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Type;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TextStorage implements StorageInterface {
